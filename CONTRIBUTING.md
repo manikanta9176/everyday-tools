@@ -45,12 +45,24 @@ pnpm test:e2e
 5. Cover the operation with unit tests and, for a primary workflow, a Playwright check.
 6. Update [docs/tool-inventory.md](docs/tool-inventory.md).
 
+## Report an issue
+
+Use the issue form. A blank issue is not available.
+
+- [Bug report](https://github.com/manikanta9176/everyday-tools/issues/new?template=bug.yml) for a tool that did the wrong thing. Name the tool, the browser, the steps, and a short fake example.
+- [Tool request](https://github.com/manikanta9176/everyday-tools/issues/new?template=tool-request.yml) for a new tool or a change to one. Describe the job and the result you want.
+- Do not paste real secrets, tokens, passwords, or private documents.
+- Do not use an issue for a vulnerability. Use [SECURITY.md](SECURITY.md).
+
 ## Open a pull request
 
 1. Fork the repository and branch from `main`.
 2. Keep the change small. Use a conventional commit, for example `feat: add json formatter and validator`.
 3. Do not commit `.env` files, credentials, generated secrets, or private sample documents.
-4. Open a pull request. Say what changed and which checks you ran.
+4. Open a pull request. GitHub fills in the template. Complete it:
+   - Say what changed and why.
+   - Check off `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`. Run `pnpm test:e2e` when a page or user flow changed.
+   - Confirm tool input still stays in the browser, and that the diff has no secret or private sample.
 
 ## Security
 

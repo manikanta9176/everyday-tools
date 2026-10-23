@@ -1,0 +1,53 @@
+name: Tool request
+description: Ask for a tool or a change to one that already exists.
+title: "tool: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tell us the job you want done in the browser. Do not paste real secrets or private documents.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of request is this?
+      options:
+        - A new tool
+        - A change to an existing tool
+        - Something else on the site
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      description: Name the existing tool, or the name you would give a new one.
+      placeholder: Cron parser
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: What job should it do?
+      description: The input you have and the result you want.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Small example
+      description: Use fake data only.
+      placeholder: |
+        Input: 0 9 * * 1-5
+        Result: next five run times in the local timezone
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before you submit
+      options:
+        - label: I understand the tool must run in the browser and must not upload my input.
+          required: true
+        - label: This request contains no real secret or private file.
+          required: true

@@ -1,0 +1,75 @@
+name: Bug report
+description: A tool did the wrong thing.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the broken behavior. Do not paste real secrets, tokens, passwords, or private documents. Use a short fake example.
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      description: The tool name as it appears on the site.
+      placeholder: JSON Formatter
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Secrets
+        - Encoding
+        - Data
+        - Color
+        - Image
+        - Text
+        - Code
+        - Time
+        - Math
+        - Web
+        - Documents
+        - Generators
+        - Search or navigation
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What the tool did, including the error text if there was one.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the tool.
+        2. Enter this example input.
+        3. Click the action.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Chrome 131 on macOS
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before you submit
+      options:
+        - label: This report uses a fake example and contains no real secret or private file.
+          required: true
