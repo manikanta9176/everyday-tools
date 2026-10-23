@@ -6,7 +6,6 @@ import { ToolIcon } from "@/components/icons";
 import { CommandPalette } from "@/components/search/command-palette";
 import { FavoriteButton } from "@/components/ui/feedback";
 import { categories } from "@/lib/categories";
-import { SITE } from "@/lib/site";
 import { PREFS_EVENT, readFavorites, readRecent, toggleFavorite } from "@/lib/preferences";
 import { searchTools } from "@/lib/search/search-tools";
 import { toolIcons, tools } from "@/lib/tool-registry";
@@ -37,16 +36,15 @@ export function HomePage() {
   const recentTools = recent.map((id) => tools.find((tool) => tool.id === id)).filter(Boolean) as ToolDefinition[];
 
   return (
-    <div className="grid gap-8">
-      <section className="grid gap-4">
-        <div className="max-w-2xl">
-          <p className="text-sm font-medium text-accent">{SITE.name}</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">Small tools. Less busywork.</h1>
-          <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground md:text-base">
+    <div className="grid gap-14">
+      <section className="grid min-h-[46vh] content-end gap-8">
+        <div className="max-w-3xl">
+          <h1 className="text-5xl font-medium tracking-[-0.045em] text-quiet md:text-7xl">Small tools. Less busywork.</h1>
+          <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
             Tokens, JSON, color, images, and the other small jobs that interrupt real work. Everything here runs in your browser.
           </p>
         </div>
-        <label className="grid max-w-2xl gap-2">
+        <label className="grid max-w-xl gap-2 rounded-[28px] border bg-card p-3 shadow-[var(--shadow)]">
           <span className="sr-only">Search tools</span>
           <input
             value={query}
@@ -57,10 +55,10 @@ export function HomePage() {
                 setOpen(true);
               }
             }}
-            placeholder="Search by name or task — format JSON, generate secret, hex to RGB"
-            className="h-12 rounded-lg border bg-card px-4 text-sm shadow-[var(--shadow)] outline-none"
+            placeholder="What do you need?"
+            className="h-12 rounded-full border bg-muted/70 px-4 text-sm outline-none placeholder:text-muted-foreground"
           />
-          <span className="text-xs text-muted-foreground">Press ⌘K or Ctrl K to open search from anywhere.</span>
+          <span className="px-2 text-xs text-muted-foreground">⌘K from anywhere. Try format JSON, generate secret, or hex to RGB.</span>
         </label>
         {query.trim() ? (
           <div className="grid gap-2">
@@ -73,7 +71,7 @@ export function HomePage() {
         ) : (
           <div className="flex flex-wrap gap-2">
             {tools.filter((tool) => tool.quickAction).map((tool) => (
-              <Link key={tool.id} href={`/tools/${tool.slug}`} className="rounded-full border bg-card px-3 py-1.5 text-sm hover:bg-muted">
+              <Link key={tool.id} href={`/tools/${tool.slug}`} className="rounded-full border bg-card px-3 py-1.5 text-sm shadow-[var(--shadow)] hover:bg-muted">
                 {tool.name}
               </Link>
             ))}
@@ -94,7 +92,7 @@ export function HomePage() {
         <h2 className="text-sm font-medium text-muted-foreground">Categories</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
-            <article key={category.id} className="rounded-lg border bg-card p-4">
+            <article key={category.id} className="rounded-[24px] border bg-card p-5 shadow-[var(--shadow)]">
               <h3 className="font-medium">{category.name}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{category.description}</p>
               <ul className="mt-3 grid gap-1 text-sm">
@@ -106,7 +104,7 @@ export function HomePage() {
           ))}
         </div>
       </section>
-      <section className="max-w-2xl rounded-lg border bg-card p-4 text-sm leading-6">
+      <section className="max-w-xl rounded-[24px] border bg-card p-5 text-sm leading-6 shadow-[var(--shadow)]">
         <h2 className="font-medium">Private by default</h2>
         <p className="mt-1 text-muted-foreground">
           Pasted text, secrets, colors, images, and PDFs are processed on this device. The app does not upload them and does not keep an input history. Favorites store only the tool id.
@@ -130,8 +128,8 @@ function ToolSection({ title, tools: items, favorites, onFavorite }: { title: st
 
 function ToolRow({ tool, favorite, onFavorite }: { tool: ToolDefinition; favorite: boolean; onFavorite: () => void }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg border bg-card px-3 py-2">
-      <ToolIcon name={toolIcons[tool.slug] ?? "file"} className="size-4 text-accent" />
+    <div className="flex items-center gap-3 rounded-[22px] border bg-card px-3 py-3 shadow-[var(--shadow)]">
+      <ToolIcon name={toolIcons[tool.slug] ?? "file"} className="size-4 text-signal" />
       <Link href={`/tools/${tool.slug}`} className="min-w-0 flex-1">
         <span className="block text-sm font-medium">{tool.name}</span>
         <span className="block truncate text-xs text-muted-foreground">{tool.description}</span>

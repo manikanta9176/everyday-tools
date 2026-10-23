@@ -43,18 +43,18 @@ export function AppShell({ children }: { children: ReactNode }) {
       <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 flex h-14 items-center gap-2 border-b bg-background/90 px-3 backdrop-blur md:px-4">
+      <header className="sticky top-0 z-40 flex h-16 items-center gap-2 bg-transparent px-3 md:px-5">
         <button type="button" className="inline-flex size-10 items-center justify-center rounded-md hover:bg-muted md:hidden" aria-label="Open navigation" onClick={() => setMobile(true)}>
           <Menu className="size-4" />
         </button>
         <button type="button" className="hidden size-10 items-center justify-center rounded-md hover:bg-muted md:inline-flex" aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"} onClick={() => setCollapsed((value) => !value)}>
           <PanelLeft className="size-4" />
         </button>
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid size-7 place-items-center rounded-md bg-accent text-xs text-accent-foreground">T</span>
-          <span className="hidden sm:inline">{SITE.name}</span>
+        <Link href="/" className="flex items-center gap-2 text-sm font-medium tracking-tight">
+          <span className="size-1.5 rounded-full bg-signal" aria-hidden="true" />
+          {SITE.name}
         </Link>
-        <button type="button" data-ready={mounted ? "true" : "false"} onClick={() => setOpen(true)} className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-md border bg-card px-3 text-left text-sm text-muted-foreground md:mx-6 md:max-w-xl">
+        <button type="button" data-ready={mounted ? "true" : "false"} onClick={() => setOpen(true)} className="ml-auto flex h-11 min-w-0 flex-1 items-center gap-2 rounded-full border bg-card px-4 text-left text-sm text-muted-foreground shadow-[var(--shadow)] md:mx-8 md:max-w-md">
           <Search className="size-4 shrink-0" />
           <span className="truncate">Search tools</span>
           <kbd className="ml-auto hidden rounded border bg-muted px-1.5 py-0.5 text-[11px] md:inline">⌘K</kbd>
@@ -67,11 +67,11 @@ export function AppShell({ children }: { children: ReactNode }) {
         </button>
       </header>
       <div className="flex min-h-0 flex-1">
-        <aside className={cn("sticky top-14 hidden h-[calc(100vh-3.5rem)] shrink-0 overflow-y-auto border-r bg-sidebar md:block", collapsed ? "w-16" : "w-60")}>
+        <aside className={cn("sticky top-16 hidden h-[calc(100vh-4rem)] shrink-0 overflow-y-auto md:block", collapsed ? "w-16" : "w-56")}>
           <Nav collapsed={collapsed} pathname={pathname} />
         </aside>
         <div className="min-w-0 flex-1">
-          <main id="content" className="mx-auto w-full max-w-5xl px-4 py-6 md:px-8">
+          <main id="content" className="mx-auto w-full max-w-5xl px-4 py-8 md:px-8 md:py-12">
             {children}
           </main>
           <footer className="border-t px-4 py-6 text-sm text-muted-foreground md:px-8">
@@ -128,8 +128,8 @@ function Nav({ collapsed, pathname }: { collapsed: boolean; pathname: string }) 
               const active = pathname === `/tools/${item.slug}`;
               return (
                 <li key={item.id}>
-                  <Link href={`/tools/${item.slug}`} title={item.name} aria-current={active ? "page" : undefined} className={cn("flex items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted", active && "bg-accent-soft font-medium")}>
-                    <ToolIcon name={toolIcons[item.slug] ?? "file"} className="size-4 shrink-0" />
+                  <Link href={`/tools/${item.slug}`} title={item.name} aria-current={active ? "page" : undefined} className={cn("flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-foreground/80 hover:bg-card", active && "bg-card font-medium text-foreground shadow-[var(--shadow)]")}>
+                    <ToolIcon name={toolIcons[item.slug] ?? "file"} className={cn("size-4 shrink-0", active ? "text-signal" : "text-muted-foreground")} />
                     {!collapsed ? <span className="truncate">{item.name}</span> : null}
                   </Link>
                 </li>
