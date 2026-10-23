@@ -12,7 +12,7 @@ export function renderOgImage(title: string, subtitle: string) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        background: "#f6f4ef",
+        background: "#f3efe6",
         color: "#1c1917",
         padding: "64px",
       }}
@@ -23,7 +23,7 @@ export function renderOgImage(title: string, subtitle: string) {
             width: 56,
             height: 56,
             borderRadius: 14,
-            background: "#5b46c7",
+            background: "#2a4bff",
             color: "#f7f4ef",
             display: "flex",
             alignItems: "center",
@@ -34,7 +34,7 @@ export function renderOgImage(title: string, subtitle: string) {
         >
           T
         </div>
-        <div style={{ marginLeft: 18, fontSize: 32, color: "#5b46c7" }}>Tools</div>
+        <div style={{ marginLeft: 18, fontSize: 32, color: "#141311" }}>Tools</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", maxWidth: 980 }}>
         <div style={{ fontSize: 68, fontWeight: 650, lineHeight: 1.05, letterSpacing: -1.5 }}>{title}</div>

@@ -31,8 +31,8 @@ export function CommandPalette({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-foreground/30" />
-        <Dialog.Content className="fixed top-[12vh] left-1/2 z-50 w-[min(640px,calc(100%-2rem))] -translate-x-1/2 rounded-xl border bg-card shadow-lg">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-[#141311]/25" />
+        <Dialog.Content className="fixed top-[14vh] left-1/2 z-50 w-[min(640px,calc(100%-2rem))] -translate-x-1/2 rounded-[28px] border bg-card shadow-[var(--shadow)]">
           <Dialog.Title className="sr-only">Search tools</Dialog.Title>
           <Dialog.Description className="sr-only">
             Search by tool name, alias, or task. Results stay on this device.
@@ -54,9 +54,9 @@ export function CommandPalette({
                   key={tool.id}
                   value={tool.slug}
                   onSelect={() => openTool(tool)}
-                  className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 aria-selected:bg-muted"
+                  className="flex cursor-pointer items-center gap-3 rounded-2xl px-3 py-2 aria-selected:bg-muted"
                 >
-                  <ToolIcon name={toolIcons[tool.slug] ?? "file"} className="size-4 text-accent" />
+                  <ToolIcon name={toolIcons[tool.slug] ?? "file"} className="size-4 text-signal" />
                   <span className="min-w-0">
                     <span className="block text-sm font-medium">{tool.name}</span>
                     <span className="block truncate text-xs text-muted-foreground">

@@ -9,7 +9,7 @@ export function Input({ className, ...props }: React.ComponentProps<"input">) {
   return (
     <input
       className={cn(
-        "h-10 w-full rounded-md border bg-card px-3 text-sm outline-none placeholder:text-muted-foreground",
+        "h-11 w-full rounded-2xl border bg-card px-3.5 text-sm outline-none placeholder:text-muted-foreground",
         className,
       )}
       {...props}
@@ -21,7 +21,7 @@ export function TextArea({ className, ...props }: React.ComponentProps<"textarea
   return (
     <textarea
       className={cn(
-        "min-h-40 w-full resize-y rounded-md border bg-card px-3 py-2 font-mono text-sm leading-6 outline-none placeholder:text-muted-foreground",
+        "min-h-40 w-full resize-y rounded-2xl border bg-card px-3.5 py-3 font-mono text-sm leading-6 outline-none placeholder:text-muted-foreground",
         className,
       )}
       {...props}
@@ -32,7 +32,7 @@ export function TextArea({ className, ...props }: React.ComponentProps<"textarea
 export function Select({ className, ...props }: React.ComponentProps<"select">) {
   return (
     <select
-      className={cn("h-10 rounded-md border bg-card px-3 text-sm outline-none", className)}
+      className={cn("h-11 rounded-2xl border bg-card px-3.5 text-sm outline-none", className)}
       {...props}
     />
   );
