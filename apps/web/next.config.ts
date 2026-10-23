@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
     "@tools/passphrase-generator",
     "@tools/uuid-generator",
     "@tools/api-key-generator",
+    "@tools/ui",
   ],
   turbopack: {
     rules: {

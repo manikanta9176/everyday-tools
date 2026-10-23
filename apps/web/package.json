@@ -20,6 +20,7 @@
     "@tools/passphrase-generator": "workspace:*",
     "@tools/password-generator": "workspace:*",
     "@tools/random-secret-generator": "workspace:*",
+    "@tools/ui": "workspace:*",
     "@tools/uuid-generator": "workspace:*",
     "@radix-ui/react-checkbox": "^1.4.1",
     "@radix-ui/react-dialog": "^1.3.1",

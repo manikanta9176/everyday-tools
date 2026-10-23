@@ -37,7 +37,7 @@ export function HomePage() {
 
   return (
     <div className="grid gap-14">
-      <section className="grid min-h-[46vh] content-end gap-8">
+      <section className="grid gap-8">
         <div className="max-w-3xl">
           <h1 className="text-5xl font-medium tracking-[-0.045em] text-quiet md:text-7xl">Small tools. Less busywork.</h1>
           <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
