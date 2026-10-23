@@ -1,0 +1,15 @@
+---
+description: Everyday Tools product and engineering conventions
+alwaysApply: true
+---
+
+# Everyday Tools
+
+- Process tool inputs in the browser. Do not add API routes that receive pasted text, secrets, images, or documents.
+- Use `crypto.getRandomValues()` or `crypto.randomUUID()` for secrets, passwords, tokens, and API keys. Never use `Math.random()` for those.
+- Register every ready tool in `src/lib/tool-registry.ts`. Search, navigation, and related links must read that registry.
+- Keep transformation logic in testable modules, separate from React components.
+- Lazy-load image, PDF, and code-formatting libraries.
+- Do not mark a tool ready until its operation works and has meaningful tests.
+- Do not log generated secrets or raw user input.
+- Store favorites and recent tools as identifiers only.
