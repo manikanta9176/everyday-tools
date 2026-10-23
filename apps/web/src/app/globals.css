@@ -24,10 +24,7 @@ body {
 }
 
 .dark body {
-  background:
-    radial-gradient(880px 460px at 100% -12%, rgb(90 120 255 / 0.18), transparent 62%),
-    radial-gradient(680px 420px at -12% 110%, rgb(255 150 70 / 0.08), transparent 58%),
-    var(--background);
+  background: var(--background);
 }
 
 ::selection {
@@ -38,6 +35,43 @@ body {
 :focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+  transition: outline-offset 160ms ease;
+}
+
+:where(button, a, input, select, textarea, label, summary) {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes motion-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.motion-in {
+  animation: motion-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawer-in {
+  animation: drawer-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

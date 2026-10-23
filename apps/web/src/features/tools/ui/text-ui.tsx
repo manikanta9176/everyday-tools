@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Checkbox } from "@tools/ui/components/checkbox";
 import { Button } from "@/components/ui/button";
 import { Field, Input, Select, TextArea } from "@/components/ui/field";
 import { ErrorNote } from "@/components/ui/feedback";
@@ -55,7 +56,7 @@ function ReplaceTool() {
   const [search, setSearch] = useState("cat");
   const [replacement, setReplacement] = useState("dog");
   const [regex, setRegex] = useState(false);
-  return <div className="grid gap-3"><div className="grid gap-3 md:grid-cols-2"><Field label="Find" htmlFor="find"><Input id="find" value={search} onChange={(event) => setSearch(event.target.value)} /></Field><Field label="Replace" htmlFor="replace"><Input id="replace" value={replacement} onChange={(event) => setReplacement(event.target.value)} /></Field></div><label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={regex} onChange={(event) => setRegex(event.target.checked)} />Regular expression</label><TextWorkspace action="Replace" placeholder="The original stays in this box." run={(input) => findAndReplace(input, search, replacement, regex)} /></div>;
+  return <div className="grid gap-3"><div className="grid gap-3 md:grid-cols-2"><Field label="Find" htmlFor="find"><Input id="find" value={search} onChange={(event) => setSearch(event.target.value)} /></Field><Field label="Replace" htmlFor="replace"><Input id="replace" value={replacement} onChange={(event) => setReplacement(event.target.value)} /></Field></div><label className="flex items-center gap-2 text-sm"><Checkbox checked={regex} onCheckedChange={(checked) => setRegex(checked === true)} className="size-5 rounded-md" />Regular expression</label><TextWorkspace action="Replace" placeholder="The original stays in this box." run={(input) => findAndReplace(input, search, replacement, regex)} /></div>;
 }
 
 function LoremTool() {

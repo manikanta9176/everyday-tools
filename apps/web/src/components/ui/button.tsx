@@ -15,7 +15,7 @@ const looks = {
   primary: "h-11 bg-primary text-primary-foreground hover:bg-primary/90",
   secondary: "h-11 border-border bg-card text-foreground hover:bg-muted",
   ghost: "hover:bg-muted",
-  danger: "h-11 bg-destructive text-white hover:bg-destructive/90",
+  danger: "h-11 bg-destructive text-primary-foreground hover:bg-destructive/90",
 } as const;
 
 const sizes = {

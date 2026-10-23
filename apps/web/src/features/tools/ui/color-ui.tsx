@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Field, Input, TextArea } from "@/components/ui/field";
+import { Field, Input, RangeControl, TextArea } from "@/components/ui/field";
 import { CopyButton, ErrorNote } from "@/components/ui/feedback";
 import { OutputBlock } from "@/components/ui/output";
 import { contrastRatio } from "@/features/tools/colors/contrast";
@@ -42,7 +42,7 @@ function Converter() {
         <Field label="Any CSS color" htmlFor="color">
           <Input id="color" value={input} onChange={(event) => setInput(event.target.value)} />
         </Field>
-        <input aria-label="Color picker" type="color" value={result.value?.hex.slice(0, 7) ?? "#8b5cf6"} onChange={(event) => setInput(event.target.value)} className="h-10 w-full" />
+        <ColorWell value={result.value?.hex.slice(0, 7) ?? "#8b5cf6"} onChange={setInput} />
         <Field label="Decimal places" htmlFor="precision"><Input id="precision" type="number" min={0} max={6} value={precision} onChange={(event) => setPrecision(Number(event.target.value))} /></Field>
         <Button onClick={keep}>Keep this color on this device</Button>
         {recent.length ? <div className="flex flex-wrap gap-2">{recent.map((color) => <button key={color} type="button" aria-label={color} className="size-8 rounded-md border" style={{ background: color }} onClick={() => setInput(color)} />)}</div> : null}
@@ -150,6 +150,34 @@ function GradientTool() {
     }
   }, [angle, first, second]);
   return <div className="grid gap-4"><div className="h-28 rounded-xl border" style={{ background: css.value || "transparent" }} /><div className="grid gap-4 md:grid-cols-3"><Field label="First stop" htmlFor="g1"><Input id="g1" value={first} onChange={(event) => setFirst(event.target.value)} /></Field><Field label="Second stop" htmlFor="g2"><Input id="g2" value={second} onChange={(event) => setSecond(event.target.value)} /></Field><Field label="Angle" htmlFor="angle"><Input id="angle" type="number" value={angle} onChange={(event) => setAngle(Number(event.target.value))} /></Field></div><ErrorNote message={css.error} /><OutputBlock value={css.value ? `background: ${css.value};` : ""} /></div>;
+}
+
+function ColorWell({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const channels = hexChannels(value);
+  function setChannel(index: number, next: number) {
+    const rgb = [...channels];
+    rgb[index] = next;
+    onChange(`#${rgb.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`);
+  }
+  return (
+    <div className="grid gap-3 rounded-2xl border border-border bg-card p-3">
+      <div className="flex items-center gap-3">
+        <span className="size-10 rounded-full border border-border" style={{ background: value }} />
+        <span className="font-mono text-sm">{value}</span>
+      </div>
+      {(["Red", "Green", "Blue"] as const).map((name, index) => (
+        <label key={name} className="grid gap-1 text-xs text-muted-foreground">
+          {name} {channels[index]}
+          <RangeControl min={0} max={255} step={1} value={channels[index] ?? 0} onValueChange={(next) => setChannel(index, next)} />
+        </label>
+      ))}
+    </div>
+  );
+}
+
+function hexChannels(value: string) {
+  const hex = value.replace("#", "").slice(0, 6).padEnd(6, "0");
+  return [0, 2, 4].map((start) => Number.parseInt(hex.slice(start, start + 2), 16) || 0);
 }
 
 function CssVarTool() {

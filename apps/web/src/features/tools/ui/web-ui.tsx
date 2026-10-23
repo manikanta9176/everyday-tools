@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Field, Input, TextArea } from "@/components/ui/field";
+import { Field, Input, Select, TextArea } from "@/components/ui/field";
 import { ErrorNote, Toggle } from "@/components/ui/feedback";
 import { OutputBlock } from "@/components/ui/output";
 import { buildCurl, buildUrl, buildUtm, chmod, curlToFetch, decodeJwt, digestText, dockerCompose, envTemplate, gitignore, htmlBoilerplate, LICENSES, metaTags, nginxServer, parseCidr, parseUrl, parseUserAgent, readmeTemplate, robotsTxt, searchHttpStatus, sitemapXml, testRegex } from "@/features/tools/web/web-tools";
@@ -111,7 +111,7 @@ function HashTool() {
   const [algorithm, setAlgorithm] = useState<"SHA-1" | "SHA-256" | "SHA-384" | "SHA-512">("SHA-256");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
-  return <div className="grid gap-4"><p className="text-sm text-muted-foreground">SHA-1 is included for checksums. Do not use it for new security decisions.</p><TextArea aria-label="Text to hash" value={input} onChange={(event) => setInput(event.target.value)} /><Field label="Algorithm" htmlFor="alg"><select id="alg" className="h-10 rounded-md border bg-card px-3" value={algorithm} onChange={(event) => setAlgorithm(event.target.value as typeof algorithm)}><option>SHA-1</option><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option></select></Field><Button variant="primary" onClick={() => { void digestText(algorithm, input).then((value) => { setOutput(value); setError(""); }).catch((reason) => setError(reason instanceof Error ? reason.message : "Could not hash.")); }}>Hash</Button><ErrorNote message={error} /><OutputBlock value={output} /></div>;
+  return <div className="grid gap-4"><p className="text-sm text-muted-foreground">SHA-1 is included for checksums. Do not use it for new security decisions.</p><TextArea aria-label="Text to hash" value={input} onChange={(event) => setInput(event.target.value)} /><Field label="Algorithm" htmlFor="alg"><Select id="alg" value={algorithm} onChange={(event) => setAlgorithm(event.target.value as typeof algorithm)}><option>SHA-1</option><option>SHA-256</option><option>SHA-384</option><option>SHA-512</option></Select></Field><Button variant="primary" onClick={() => { void digestText(algorithm, input).then((value) => { setOutput(value); setError(""); }).catch((reason) => setError(reason instanceof Error ? reason.message : "Could not hash.")); }}>Hash</Button><ErrorNote message={error} /><OutputBlock value={output} /></div>;
 }
 
 function ChmodTool() {
