@@ -21,9 +21,9 @@ Favorites and recently used tools are stored in `localStorage` as tool ids and t
 
 ## Adding a tool
 
-1. Add a tested function under `src/features/tools/<family>/`.
+1. Add a tested function under `apps/web/src/features/tools/<family>/`. Use `packages/tools/<name>` when that logic is a workspace package.
 2. Add a client view that calls that function and handles invalid input.
-3. Register the tool in `src/lib/tool-registry.ts` with `status: "ready"`.
-4. Point the loader map at the view.
+3. Register the tool in `apps/web/src/lib/tool-registry.ts` with `status: "ready"`.
+4. Point the loader in `apps/web/src/features/tools/ui/tool-host.tsx` at the view.
 5. Cover the operation with unit tests and, for a primary workflow, a Playwright check.
 6. Update `docs/tool-inventory.md`.

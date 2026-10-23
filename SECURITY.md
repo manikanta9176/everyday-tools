@@ -11,7 +11,7 @@ Tools processes untrusted text and files locally.
 
 ## Reporting
 
-Please open a private GitHub security advisory on [manikanta9176/everyday-tools](https://github.com/manikanta9176/everyday-tools) or email the maintainer through the address listed on that GitHub profile. Describe the behavior, the tool involved, and a safe reproduction. Do not include real secrets.
+Open a private advisory on [manikanta9176/everyday-tools](https://github.com/manikanta9176/everyday-tools/security/advisories/new), or email the address listed on the [GitHub profile](https://github.com/manikanta9176). Describe the behavior, the tool involved, and a safe reproduction. Do not include real secrets. Do not open a public issue for a vulnerability.
 
 ## Out of scope
 
