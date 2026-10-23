@@ -59,8 +59,8 @@ function TokenTool() {
             </Button>
           ))}
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          <Field label={characterMode ? "Character count" : "Byte count"} htmlFor="bytes" hint={characterMode ? "This count is characters, not encoded length." : "Bytes, encoded length, and entropy are different. 32 bytes is 256 bits before encoding."}>
+        <div className="grid items-start gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_9rem]">
+          <Field label={characterMode ? "Character count" : "Byte count"} htmlFor="bytes">
             <Input id="bytes" type="number" min={1} max={1024} value={bytes} onChange={(event) => setBytes(Number(event.target.value))} />
           </Field>
           <Field label="Format" htmlFor="format">
@@ -76,8 +76,11 @@ function TokenTool() {
             <Input id="count" type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value))} />
           </Field>
         </div>
+        <p className="text-xs leading-5 text-muted-foreground">
+          {characterMode ? "This count is characters, not encoded length." : "Bytes, encoded length, and entropy are different. 32 bytes is 256 bits before encoding."}
+        </p>
         {format === "custom" ? <Field label="Alphabet" htmlFor="alphabet"><Input id="alphabet" value={alphabet} onChange={(event) => setAlphabet(event.target.value)} /></Field> : null}
-        <Button variant="primary" onClick={run}>Generate locally</Button>
+        <Button variant="primary" className="w-full sm:w-fit" onClick={run}>Generate locally</Button>
         <ErrorNote message={error} />
         <OutputBlock value={output} empty="Choose a size and generate a token. It is created with crypto.getRandomValues() and is not saved." />
       </section>
