@@ -12,14 +12,21 @@ test("search opens the token generator", async ({ page }) => {
 });
 
 test("json formatter rejects invalid json and formats valid json", async ({ page }) => {
-  await page.goto("/tools/json-formatter");
+  await page.goto("/tools/json-formatter", { waitUntil: "networkidle" });
   await page.locator("[data-ready='true']").waitFor();
   const input = page.getByRole("textbox", { name: "JSON" });
-  await input.fill("{");
-  await page.getByRole("button", { name: "Format", exact: true }).click();
-  await expect(page.getByText(/Expected property name/)).toBeVisible();
-  await input.fill('{"b":1,"a":2}');
-  await page.getByRole("button", { name: "Format", exact: true }).click();
+  const format = page.getByRole("button", { name: "Format", exact: true });
+  await expect(async () => {
+    await input.fill("{");
+    await expect(input).toHaveValue("{");
+  }).toPass();
+  await format.click();
+  await expect(page.getByText(/Expected property name|not valid JSON/)).toBeVisible();
+  await expect(async () => {
+    await input.fill('{"b":1,"a":2}');
+    await expect(input).toHaveValue('{"b":1,"a":2}');
+  }).toPass();
+  await format.click();
   await expect(page.locator("pre").last()).toContainText('"a": 2');
 });
 
