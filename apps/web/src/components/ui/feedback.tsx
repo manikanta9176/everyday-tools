@@ -2,7 +2,7 @@
 
 import * as Switch from "@radix-ui/react-switch";
 import * as Tabs from "@radix-ui/react-tabs";
-import { Check, Copy, Star } from "lucide-react";
+import { Check, CircleAlert, Copy, Star } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { copyText } from "@/lib/clipboard";
@@ -33,8 +33,9 @@ export function Badge({
 export function ErrorNote({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <div role="alert" className="rounded-md border border-danger/30 bg-danger-soft px-3 py-2 text-sm text-danger">
-      {message}
+    <div role="alert" className="motion-in flex items-start gap-2.5 rounded-2xl border border-danger/20 bg-danger-soft px-3.5 py-3 text-sm text-danger">
+      <CircleAlert className="mt-0.5 size-4 shrink-0" />
+      <p className="leading-5">{message}</p>
     </div>
   );
 }
@@ -62,7 +63,7 @@ export function CopyButton({
     <button
       type="button"
       className={cn(
-        "inline-flex h-8 items-center gap-1.5 rounded-md border bg-card px-2.5 text-xs font-medium hover:bg-muted",
+        "inline-flex h-8 items-center gap-1.5 rounded-full border bg-card px-3 text-xs font-medium transition-colors duration-200 hover:bg-muted",
         className,
       )}
       onClick={async () => {
@@ -100,9 +101,9 @@ export function Toggle({
         id={id}
         checked={checked}
         onCheckedChange={onCheckedChange}
-        className="relative h-6 w-10 rounded-full bg-muted data-[state=checked]:bg-accent"
+        className="relative h-6 w-11 shrink-0 rounded-full bg-muted transition-colors duration-200 data-[state=checked]:bg-primary"
       >
-        <Switch.Thumb className="block size-5 translate-x-0.5 rounded-full bg-card shadow transition-transform data-[state=checked]:translate-x-4" />
+        <Switch.Thumb className="block size-5 translate-x-0.5 rounded-full bg-card shadow transition-transform duration-200 ease-out data-[state=checked]:translate-x-5" />
       </Switch.Root>
     </label>
   );

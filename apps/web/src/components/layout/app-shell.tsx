@@ -10,6 +10,7 @@ import {
   FileText,
   Globe,
   Image,
+  Keyboard,
   KeyRound,
   Menu,
   Moon,
@@ -30,7 +31,6 @@ import { categories, type CategoryId } from "@/lib/categories";
 import { SITE } from "@/lib/site";
 import { toolIcons, toolsInCategory } from "@/lib/tool-registry";
 import { cn } from "@/lib/utils";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@tools/ui/components/collapsible";
 import {
   Dialog,
   DialogContent,
@@ -89,8 +89,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
       {mobile ? (
         <div className="fixed inset-0 z-50 md:hidden">
-          <button type="button" className="absolute inset-0 bg-foreground/30" aria-label="Close navigation" onClick={() => setMobile(false)} />
-          <aside className="relative flex h-full w-72 flex-col bg-card shadow-[var(--shadow)]">
+          <button type="button" className="motion-in absolute inset-0 bg-foreground/30" aria-label="Close navigation" onClick={() => setMobile(false)} />
+          <aside className="drawer-in relative flex h-full w-72 flex-col bg-card shadow-[var(--shadow)]">
             <ToolNav pathname={pathname} onNavigate={() => setMobile(false)} />
           </aside>
         </div>
@@ -108,26 +108,35 @@ export function AppShell({ children }: { children: ReactNode }) {
             type="button"
             data-ready={mounted ? "true" : "false"}
             onClick={() => setOpen(true)}
-            className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full border border-border bg-card px-3 text-left text-sm text-muted-foreground md:max-w-sm"
+            className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-full border border-border bg-card py-0 pr-1.5 pl-3 text-left text-sm leading-none text-muted-foreground md:max-w-sm"
           >
             <Search className="size-4 shrink-0" />
-            <span className="truncate">Search tools</span>
-            <Kbd className="ml-auto hidden md:inline-flex">⌘K</Kbd>
+            <span className="min-w-0 flex-1 truncate">Search tools</span>
+            <Kbd className="hidden h-6 shrink-0 items-center rounded-full px-2 leading-none md:inline-flex">⌘K</Kbd>
           </button>
-          <button
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full hover:bg-muted"
-            aria-label="Toggle color theme"
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          >
-            {mounted && resolvedTheme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
-          </button>
-          <button type="button" className="hidden h-10 rounded-full px-3 text-sm hover:bg-muted sm:inline-flex" onClick={() => setShortcuts(true)}>
-            Shortcuts
-          </button>
+          <div className="flex h-10 shrink-0 items-center">
+            <button
+              type="button"
+              className="inline-flex size-10 items-center justify-center rounded-full hover:bg-muted"
+              aria-label="Toggle color theme"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            >
+              {mounted && resolvedTheme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </button>
+            <button
+              type="button"
+              className="ml-1 hidden h-10 items-center gap-2 rounded-full border border-border bg-card px-3 text-sm leading-none text-foreground hover:bg-muted sm:inline-flex"
+              onClick={() => setShortcuts(true)}
+            >
+              <Keyboard className="size-4 shrink-0 text-muted-foreground" />
+              Shortcuts
+            </button>
+          </div>
         </header>
         <main id="content" className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 py-6 md:px-8 md:py-8">
-          {children}
+          <div key={pathname} className="motion-in">
+            {children}
+          </div>
         </main>
         <footer className="border-t border-border px-4 py-5 text-sm text-muted-foreground md:px-8">
           <div className="mx-auto flex w-full max-w-4xl flex-wrap gap-x-4 gap-y-2">
@@ -141,7 +150,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
       <CommandPalette open={open} onOpenChange={setOpen} />
       <Dialog open={shortcuts} onOpenChange={setShortcuts}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="motion-in sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Keyboard shortcuts</DialogTitle>
             <DialogDescription>These stay out of the way of normal typing.</DialogDescription>
@@ -182,36 +191,43 @@ function ToolNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () =
           const Icon = categoryIcons[category.id];
           const open = openId === category.id;
           return (
-            <Collapsible key={category.id} open={open} onOpenChange={(next) => setOverride({ path: pathname, id: next ? category.id : null })}>
-              <CollapsibleTrigger className="flex h-9 w-full items-center gap-2 rounded-full px-3 text-sm font-medium hover:bg-muted">
+            <div key={category.id}>
+              <button
+                type="button"
+                aria-expanded={open}
+                onClick={() => setOverride({ path: pathname, id: open ? null : category.id })}
+                className="flex h-9 w-full items-center gap-2 rounded-full px-3 text-sm font-medium transition-colors duration-300 hover:bg-muted"
+              >
                 <Icon className="size-4 text-muted-foreground" />
                 <span>{category.name}</span>
-                <ChevronDown className={cn("ml-auto size-4 text-muted-foreground transition-transform", open && "rotate-180")} />
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <ul className="mt-1 mb-2 grid gap-0.5 border-l border-border py-1 pl-3">
-                  {toolsInCategory(category.id).map((tool) => {
-                    const active = pathname === `/tools/${tool.slug}`;
-                    return (
-                      <li key={tool.id}>
-                        <Link
-                          href={`/tools/${tool.slug}`}
-                          aria-current={active ? "page" : undefined}
-                          onClick={onNavigate}
-                          className={cn(
-                            "flex h-8 items-center gap-2 rounded-full px-3 text-sm text-foreground/80 hover:bg-muted",
-                            active && "bg-background font-medium text-foreground shadow-[var(--shadow)]",
-                          )}
-                        >
-                          <ToolIcon name={toolIcons[tool.slug] ?? "file"} className={cn("size-4 shrink-0", active ? "text-signal" : "text-muted-foreground")} />
-                          <span className="truncate">{tool.name}</span>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </CollapsibleContent>
-            </Collapsible>
+                <ChevronDown className={cn("ml-auto size-4 text-muted-foreground transition-transform duration-300 ease-out", open && "rotate-180")} />
+              </button>
+              <div className={cn("grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+                <div className="overflow-hidden">
+                  <ul className={cn("grid gap-0.5 py-1 pl-4 transition-opacity duration-300", open ? "opacity-100" : "opacity-0")}>
+                    {toolsInCategory(category.id).map((tool) => {
+                      const active = pathname === `/tools/${tool.slug}`;
+                      return (
+                        <li key={tool.id}>
+                          <Link
+                            href={`/tools/${tool.slug}`}
+                            aria-current={active ? "page" : undefined}
+                            onClick={onNavigate}
+                            className={cn(
+                              "flex h-8 items-center gap-2 rounded-full px-3 text-sm text-foreground/80 transition-colors duration-300 hover:bg-muted",
+                              active && "bg-background font-medium text-foreground shadow-[var(--shadow)]",
+                            )}
+                          >
+                            <ToolIcon name={toolIcons[tool.slug] ?? "file"} className={cn("size-4 shrink-0", active ? "text-signal" : "text-muted-foreground")} />
+                            <span className="truncate">{tool.name}</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
           );
         })}
       </nav>

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Field, Input, Select } from "@/components/ui/field";
+import { FileDrop } from "@/components/ui/file-drop";
+import { Field, Input, RangeControl, Select } from "@/components/ui/field";
 import { ErrorNote, Toggle } from "@/components/ui/feedback";
 import { OutputBlock } from "@/components/ui/output";
 import { downloadBlob } from "@/lib/downloads";
@@ -99,11 +100,13 @@ export default function ImageTools({ slug }: { slug: string }) {
 
   return (
     <div className="grid gap-4">
-      <label className="grid cursor-pointer gap-2 rounded-xl border border-dashed bg-card p-6 text-sm">
-        <span className="font-medium">Drop an image or choose a file</span>
-        <span className="text-muted-foreground">JPEG, PNG, WebP, and GIF stills. Up to 25 MB. Processing stays in this browser.</span>
-        <input aria-label="Image file" type="file" accept="image/*" className="text-sm" onChange={(event) => {
-          const next = event.target.files?.[0] ?? null;
+      <FileDrop
+        accept="image/*"
+        label="Drop an image or choose a file"
+        hint="JPEG, PNG, WebP, and GIF stills. Up to 25 MB. Processing stays in this browser."
+        files={file ? [file] : []}
+        onFiles={(nextFiles) => {
+          const next = nextFiles[0] ?? null;
           setFile(next);
           setResult(null);
           setMeta("");
@@ -114,8 +117,8 @@ export default function ImageTools({ slug }: { slug: string }) {
           const reader = new FileReader();
           reader.onload = () => setPreview(typeof reader.result === "string" ? reader.result : "");
           reader.readAsDataURL(next);
-        }} />
-      </label>
+        }}
+      />
       {preview ? (
         // User-selected files are local previews, not remote images Next can optimize.
         // eslint-disable-next-line @next/next/no-img-element
@@ -124,7 +127,9 @@ export default function ImageTools({ slug }: { slug: string }) {
       {slug === "image-compressor" || slug === "image-converter" ? (
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="Format" htmlFor="format"><Select id="format" value={mime} onChange={(event) => setMime(event.target.value as Mime)}><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></Select></Field>
-          <Field label="Quality" htmlFor="quality" hint="Used by JPEG and WebP. PNG stays lossless in most browsers."><Input id="quality" type="range" min={0.4} max={1} step={0.05} value={quality} onChange={(event) => setQuality(Number(event.target.value))} /></Field>
+          <Field label={`Quality ${Math.round(quality * 100)}%`} htmlFor="quality" hint="Used by JPEG and WebP. PNG stays lossless in most browsers.">
+            <RangeControl id="quality" min={0.4} max={1} step={0.05} value={quality} onValueChange={setQuality} />
+          </Field>
         </div>
       ) : null}
       {slug === "image-resizer" || slug === "image-transform" ? (

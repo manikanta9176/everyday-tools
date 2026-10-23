@@ -1,15 +1,28 @@
 "use client";
 
+import { Calendar } from "@tools/ui/components/calendar";
 import { Input as UiInput } from "@tools/ui/components/input";
-import { NativeSelect } from "@tools/ui/components/native-select";
+import { Slider } from "@tools/ui/components/slider";
 import { Textarea } from "@tools/ui/components/textarea";
-import type { ComponentProps, ReactNode } from "react";
+import { CalendarDays } from "lucide-react";
+import { useState, type ComponentProps, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { SelectMenu } from "@/components/ui/select-menu";
 
 const control = "h-11 max-h-11 w-full self-start rounded-2xl bg-card";
 
-export function Input({ className, ...props }: ComponentProps<typeof UiInput>) {
-  return <UiInput className={cn(control, className)} {...props} />;
+export function Input({ className, type, value, onChange, id, ...props }: ComponentProps<typeof UiInput>) {
+  if (type === "date") {
+    return (
+      <DateControl
+        id={id}
+        value={String(value ?? "")}
+        className={className}
+        onChange={(next) => onChange?.({ target: { value: next }, currentTarget: { value: next } } as never)}
+      />
+    );
+  }
+  return <UiInput id={id} type={type} value={value} onChange={onChange} className={cn(control, className)} {...props} />;
 }
 
 export function Label({ className, ...props }: ComponentProps<"label">) {
@@ -20,8 +33,100 @@ export function TextArea({ className, ...props }: ComponentProps<typeof Textarea
   return <Textarea className={cn("min-h-40 rounded-2xl bg-card", className)} {...props} />;
 }
 
-export function Select({ className, ...props }: ComponentProps<typeof NativeSelect>) {
-  return <NativeSelect className={cn(control, className)} {...props} />;
+export function Select(props: ComponentProps<typeof SelectMenu>) {
+  return <SelectMenu {...props} />;
+}
+
+function parseIsoDate(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  if (!year || !month || !day) return undefined;
+  return new Date(year, month - 1, day);
+}
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function formatIsoDate(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function formatDateLabel(value: string) {
+  const selected = parseIsoDate(value);
+  if (!selected) return "Choose a date";
+  return `${selected.getDate()} ${monthNames[selected.getMonth()]} ${selected.getFullYear()}`;
+}
+
+function DateControl({
+  id,
+  value,
+  onChange,
+  className,
+}: {
+  id?: string;
+  value: string;
+  onChange: (value: string) => void;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const selected = parseIsoDate(value);
+  return (
+    <div className="relative w-full">
+      <button
+        id={id}
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+        className={cn(control, "flex items-center justify-between px-3.5 text-left text-sm", className)}
+      >
+        <span>{formatDateLabel(value)}</span>
+        <CalendarDays className="size-4 text-muted-foreground" />
+      </button>
+      {open ? (
+        <div className="motion-in absolute z-30 mt-2 rounded-2xl border border-border bg-card shadow-[var(--shadow)]">
+          <Calendar
+            mode="single"
+            selected={selected}
+            onSelect={(date) => {
+              if (!date) return;
+              onChange(formatIsoDate(date));
+              setOpen(false);
+            }}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export function RangeControl({
+  id,
+  value,
+  min,
+  max,
+  step,
+  onValueChange,
+}: {
+  id?: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  onValueChange: (value: number) => void;
+}) {
+  return (
+    <Slider
+      id={id}
+      min={min}
+      max={max}
+      step={step}
+      value={[value]}
+      onValueChange={(next) => {
+        const incoming = Array.isArray(next) ? next[0] : next;
+        if (typeof incoming === "number") onValueChange(incoming);
+      }}
+    />
+  );
 }
 
 export function Field({
