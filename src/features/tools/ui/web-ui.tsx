@@ -92,7 +92,7 @@ function CidrTool() {
 }
 
 function MetaTool() {
-  const [title, setTitle] = useState("Everyday Tools");
+  const [title, setTitle] = useState("Tools");
   const [description, setDescription] = useState("Small tools. Less busywork.");
   const [url, setUrl] = useState("https://example.com");
   const [image, setImage] = useState("https://example.com/cover.png");

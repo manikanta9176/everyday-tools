@@ -1,9 +1,9 @@
 ---
-description: Everyday Tools product and engineering conventions
+description: Tools product and engineering conventions
 alwaysApply: true
 ---
 
-# Everyday Tools
+# Tools
 
 - Process tool inputs in the browser. Do not add API routes that receive pasted text, secrets, images, or documents.
 - Use `crypto.getRandomValues()` or `crypto.randomUUID()` for secrets, passwords, tokens, and API keys. Never use `Math.random()` for those.

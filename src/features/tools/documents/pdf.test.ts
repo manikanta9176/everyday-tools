@@ -24,7 +24,7 @@ describe("pdf operations", () => {
     expect((await PDFDocument.load(rotated)).getPage(0).getRotation().angle).toBe(90);
     const marked = await addWatermark(original, "DRAFT");
     expect((await inspectPdf(marked)).pages).toBe(3);
-    const text = await textToPdf("Hello from Everyday Tools");
+    const text = await textToPdf("Hello from Tools");
     expect((await PDFDocument.load(text)).getPageCount()).toBe(1);
   });
 });

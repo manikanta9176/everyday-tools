@@ -1,6 +1,6 @@
 # Security
 
-Everyday Tools processes untrusted text and files locally.
+Tools processes untrusted text and files locally.
 
 ## Supported use
 

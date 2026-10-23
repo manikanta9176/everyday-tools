@@ -6,6 +6,7 @@ import { ToolIcon } from "@/components/icons";
 import { CommandPalette } from "@/components/search/command-palette";
 import { FavoriteButton } from "@/components/ui/feedback";
 import { categories } from "@/lib/categories";
+import { SITE } from "@/lib/site";
 import { PREFS_EVENT, readFavorites, readRecent, toggleFavorite } from "@/lib/preferences";
 import { searchTools } from "@/lib/search/search-tools";
 import { toolIcons, tools } from "@/lib/tool-registry";
@@ -39,7 +40,7 @@ export function HomePage() {
     <div className="grid gap-8">
       <section className="grid gap-4">
         <div className="max-w-2xl">
-          <p className="text-sm font-medium text-accent">Everyday Tools</p>
+          <p className="text-sm font-medium text-accent">{SITE.name}</p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">Small tools. Less busywork.</h1>
           <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground md:text-base">
             Tokens, JSON, color, images, and the other small jobs that interrupt real work. Everything here runs in your browser.

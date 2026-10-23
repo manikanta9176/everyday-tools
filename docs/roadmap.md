@@ -1,6 +1,6 @@
 # Roadmap
 
-Execution checklist for Everyday Tools. Status is updated as milestones land.
+Execution checklist for Tools. Status is updated as milestones land. The public address is https://tools.manikanta.net.
 
 ## Milestone 1 — Foundation
 

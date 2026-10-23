@@ -1,6 +1,6 @@
 # Architecture
 
-Everyday Tools is a Next.js App Router application. Tool work runs in the browser.
+Tools is a Next.js App Router application. Tool work runs in the browser. The public origin is `https://tools.manikanta.net`.
 
 ## Boundaries
 

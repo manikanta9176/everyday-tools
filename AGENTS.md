@@ -8,7 +8,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# Everyday Tools
+# Tools
 
 This repository is a local-first utility website. Read `docs/architecture.md` and `docs/privacy-model.md` before adding tools.
 

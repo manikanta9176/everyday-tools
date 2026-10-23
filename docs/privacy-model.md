@@ -1,6 +1,6 @@
 # Privacy model
 
-Everyday Tools is built so ordinary tool use does not require an account or an upload.
+Tools is built so ordinary tool use does not require an account or an upload.
 
 ## Processed locally
 

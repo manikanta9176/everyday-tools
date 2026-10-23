@@ -1,8 +1,10 @@
-# Everyday Tools
+# Tools
 
 Small tools. Less busywork.
 
-Everyday Tools is a privacy-first collection of utilities for the work people repeat: secrets, encoding, JSON, color, images, text, time, and documents. Processing happens in the browser. There is no account and no upload of tool input to an application server.
+Tools is a privacy-first collection of utilities for the work people repeat: secrets, encoding, JSON, color, images, text, time, and documents. Processing happens in the browser. There is no account and no upload of tool input to an application server.
+
+The public site is [tools.manikanta.net](https://tools.manikanta.net). This repository stays named `everyday-tools`.
 
 ## Requirements
 

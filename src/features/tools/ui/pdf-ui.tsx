@@ -17,7 +17,7 @@ export default function PdfTools() {
   const [range, setRange] = useState("1-2");
   const [angle, setAngle] = useState<90 | 180 | 270>(90);
   const [watermark, setWatermark] = useState("DRAFT");
-  const [text, setText] = useState("Hello from Everyday Tools");
+  const [text, setText] = useState("Hello from Tools");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);

@@ -51,7 +51,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <PanelLeft className="size-4" />
         </button>
         <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid size-7 place-items-center rounded-md bg-accent text-xs text-accent-foreground">Et</span>
+          <span className="grid size-7 place-items-center rounded-md bg-accent text-xs text-accent-foreground">T</span>
           <span className="hidden sm:inline">{SITE.name}</span>
         </Link>
         <button type="button" data-ready={mounted ? "true" : "false"} onClick={() => setOpen(true)} className="ml-auto flex h-10 min-w-0 flex-1 items-center gap-2 rounded-md border bg-card px-3 text-left text-sm text-muted-foreground md:mx-6 md:max-w-xl">

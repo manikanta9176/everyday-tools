@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { SITE } from "@/lib/site";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Everyday Tools",
-    short_name: "Everyday",
-    description: "Small tools. Less busywork. Private utilities that run in your browser.",
+    name: SITE.name,
+    short_name: SITE.name,
+    description: `${SITE.tagline} Private utilities that run in your browser.`,
     start_url: "/",
     display: "standalone",
     background_color: "#f6f4ef",
