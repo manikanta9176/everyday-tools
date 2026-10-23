@@ -43,10 +43,18 @@ function parseIsoDate(value: string) {
   return new Date(year, month - 1, day);
 }
 
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 function formatIsoDate(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function formatDateLabel(value: string) {
+  const selected = parseIsoDate(value);
+  if (!selected) return "Choose a date";
+  return `${selected.getDate()} ${monthNames[selected.getMonth()]} ${selected.getFullYear()}`;
 }
 
 function DateControl({
@@ -71,24 +79,22 @@ function DateControl({
         onClick={() => setOpen((current) => !current)}
         className={cn(control, "flex items-center justify-between px-3.5 text-left text-sm", className)}
       >
-        <span>{selected ? selected.toLocaleDateString() : "Choose a date"}</span>
+        <span>{formatDateLabel(value)}</span>
         <CalendarDays className="size-4 text-muted-foreground" />
       </button>
-      <div className={cn("grid transition-[grid-template-rows] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
-        <div className="overflow-hidden">
-          <div className="mt-2 rounded-2xl border border-border bg-card shadow-[var(--shadow)]">
-            <Calendar
-              mode="single"
-              selected={selected}
-              onSelect={(date) => {
-                if (!date) return;
-                onChange(formatIsoDate(date));
-                setOpen(false);
-              }}
-            />
-          </div>
+      {open ? (
+        <div className="motion-in absolute z-30 mt-2 rounded-2xl border border-border bg-card shadow-[var(--shadow)]">
+          <Calendar
+            mode="single"
+            selected={selected}
+            onSelect={(date) => {
+              if (!date) return;
+              onChange(formatIsoDate(date));
+              setOpen(false);
+            }}
+          />
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
