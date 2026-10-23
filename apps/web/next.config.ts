@@ -12,7 +12,14 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   allowedDevOrigins: ["127.0.0.1"],
-  transpilePackages: ["@tools/lib"],
+  transpilePackages: [
+    "@tools/lib",
+    "@tools/random-secret-generator",
+    "@tools/password-generator",
+    "@tools/passphrase-generator",
+    "@tools/uuid-generator",
+    "@tools/api-key-generator",
+  ],
   turbopack: {
     rules: {
       "*.css": {

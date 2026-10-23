@@ -4,8 +4,6 @@ import {
   bytesToBase64,
   bytesToBase64Url,
   bytesToHex,
-  generateApiKey,
-  generatePassword,
   generateSecret,
   randomFromAlphabet,
 } from "./random";
@@ -44,21 +42,4 @@ describe("secret encoding", () => {
     expect(() => buildOpensslCommand(0, "base64")).toThrow();
   });
 
-  it("omits ambiguous characters and keeps a prefix", () => {
-    const password = generatePassword({
-      length: 32,
-      lowercase: true,
-      uppercase: true,
-      digits: true,
-      symbols: false,
-      avoidAmbiguous: true,
-      source: sequential,
-    });
-    expect(password.values[0]).toHaveLength(32);
-    expect(password.values[0]).not.toMatch(/[O0oIl1|]/);
-    expect(password.entropyBits).toBeGreaterThan(128);
-    expect(
-      generateApiKey({ prefix: "live", bytes: 8, encoding: "hex", source: sequential }).values[0],
-    ).toMatch(/^live_[0-9a-f]{16}$/);
-  });
 });

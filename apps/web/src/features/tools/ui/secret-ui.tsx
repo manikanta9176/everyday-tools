@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Field, Input, Select } from "@/components/ui/field";
 import { ErrorNote, Toggle } from "@/components/ui/feedback";
 import { OutputBlock } from "@/components/ui/output";
-import { generateApiKey, generatePassword, generateSecret, buildOpensslCommand, type SecretFormat } from "@/features/tools/generators/random";
-import { generatePassphrase } from "@/features/tools/generators/passphrase";
-import { generateUuids } from "@/features/tools/generators/uuid";
+import { generateApiKey } from "@tools/api-key-generator";
+import { generatePassphrase } from "@tools/passphrase-generator";
+import { generatePassword } from "@tools/password-generator";
+import { buildOpensslCommand, generateSecret, type SecretFormat } from "@tools/random-secret-generator";
+import { generateUuids } from "@tools/uuid-generator";
 import { useToolHotkeys } from "./use-hotkeys";
 
 export default function SecretTools({ slug }: { slug: string }) {

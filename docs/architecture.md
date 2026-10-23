@@ -1,6 +1,6 @@
 # Architecture
 
-Tools is a Next.js App Router application. Tool work runs in the browser. The public origin is `https://tools.manikanta.net`.
+Tools is a Turborepo. The Next.js site is `apps/web`. Shared helpers live in `packages/lib`. Each tool is a workspace package under `packages/tools/<name>`, imported by the site. The public origin is `https://tools.manikanta.net`.
 
 ## Boundaries
 

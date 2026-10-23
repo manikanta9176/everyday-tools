@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { generatePassphrase, PASSPHRASE_WORDS } from "./passphrase";
-import type { ByteSource } from "./random";
+import type { ByteSource } from "@tools/random-secret-generator";
 
 describe("passphrase", () => {
   it("uses the EFF short wordlist and a separator", () => {

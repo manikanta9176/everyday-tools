@@ -1,5 +1,5 @@
 import { assertTextLimit } from "@/lib/limits";
-import { bytesToBase64, bytesToBase64Url, bytesToHex } from "@/features/tools/generators/random";
+import { bytesToBase64, bytesToBase64Url, bytesToHex } from "@tools/random-secret-generator";
 
 function bytesFromBinary(binary: string) {
   const bytes = new Uint8Array(binary.length);

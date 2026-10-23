@@ -1,6 +1,5 @@
+import { cryptoBytes, type ByteSource } from "@tools/random-secret-generator";
 import words from "./eff-short-words.json";
-import { cryptoBytes } from "./random";
-import type { ByteSource } from "./random";
 
 export const PASSPHRASE_WORDS = words;
 
