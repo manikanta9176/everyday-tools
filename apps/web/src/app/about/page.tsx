@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { SITE } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
-  description: "What Tools is for.",
-};
+  description: "What Tools is for, and how the private utilities on tools.manikanta.net work.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

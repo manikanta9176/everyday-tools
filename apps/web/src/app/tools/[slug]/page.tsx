@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ToolWorkspace } from "@/features/tools/ui/tool-host";
 import { getCategory } from "@/lib/categories";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/metadata";
 import { getTool, tools } from "@/lib/tool-registry";
+import { SITE } from "@/lib/site";
 import { FavoriteToggle } from "@/components/tools/favorite-toggle";
 
 export const instant = false;
@@ -19,12 +21,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const tool = getTool(slug);
-  if (!tool) return { title: "Tool not found" };
-  return {
+  if (!tool) return { title: "Tool not found", robots: { index: false, follow: false } };
+  return pageMetadata({
     title: tool.name,
     description: tool.description,
-    openGraph: { title: tool.name, description: tool.description },
-  };
+    path: `/tools/${tool.slug}`,
+  });
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -70,13 +72,19 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLd({
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: tool.name,
             description: tool.description,
+            url: absoluteUrl(`/tools/${tool.slug}`),
             applicationCategory: "UtilitiesApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires a modern web browser",
+            isAccessibleForFree: true,
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            provider: { "@type": "Person", name: "Manikanta", url: "https://manikanta.net" },
+            publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
           }),
         }}
       />

@@ -34,7 +34,7 @@ pnpm test:e2e
 
 See [docs/privacy-model.md](docs/privacy-model.md). Tool contents stay on the device. Favorites and recent tools are stored locally as identifiers.
 
-Set `NEXT_PUBLIC_SITE_URL` when you know the public origin. It is used only for canonical URLs and the sitemap.
+Canonical URLs, Open Graph, and the sitemap use `https://tools.manikanta.net` unless `NEXT_PUBLIC_SITE_URL` overrides it.
 
 ## Documentation
 

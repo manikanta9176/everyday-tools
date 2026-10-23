@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy",
-  description: "How Tools handles text, files, and preferences.",
-};
+  description: "How Tools handles text, files, and preferences. Tool input stays in the browser.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
