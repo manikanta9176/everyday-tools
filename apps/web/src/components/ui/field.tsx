@@ -1,41 +1,21 @@
-import * as React from "react";
+import { Input } from "@tools/ui/components/input";
+import { NativeSelect } from "@tools/ui/components/native-select";
+import { Textarea } from "@tools/ui/components/textarea";
+import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export function Label({ className, ...props }: React.ComponentProps<"label">) {
+export { Input };
+
+export function Label({ className, ...props }: ComponentProps<"label">) {
   return <label className={cn("text-sm font-medium", className)} {...props} />;
 }
 
-export function Input({ className, ...props }: React.ComponentProps<"input">) {
-  return (
-    <input
-      className={cn(
-        "h-11 w-full rounded-2xl border bg-card px-3.5 text-sm outline-none placeholder:text-muted-foreground",
-        className,
-      )}
-      {...props}
-    />
-  );
+export function TextArea(props: ComponentProps<typeof Textarea>) {
+  return <Textarea {...props} />;
 }
 
-export function TextArea({ className, ...props }: React.ComponentProps<"textarea">) {
-  return (
-    <textarea
-      className={cn(
-        "min-h-40 w-full resize-y rounded-2xl border bg-card px-3.5 py-3 font-mono text-sm leading-6 outline-none placeholder:text-muted-foreground",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export function Select({ className, ...props }: React.ComponentProps<"select">) {
-  return (
-    <select
-      className={cn("h-11 rounded-2xl border bg-card px-3.5 text-sm outline-none", className)}
-      {...props}
-    />
-  );
+export function Select(props: ComponentProps<typeof NativeSelect>) {
+  return <NativeSelect {...props} />;
 }
 
 export function Field({
@@ -47,7 +27,7 @@ export function Field({
   label: string;
   hint?: string;
   htmlFor?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="grid gap-1.5">

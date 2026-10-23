@@ -36,7 +36,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const related = tool.related.map((id) => getTool(id)).filter((item) => item !== undefined);
 
   return (
-    <article className="grid gap-6">
+    <article className="mx-auto grid w-full max-w-3xl gap-6">
       <header className="grid gap-3">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <Link href="/" className="hover:underline">Home</Link>
