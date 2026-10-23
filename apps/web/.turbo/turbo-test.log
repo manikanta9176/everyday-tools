@@ -1,0 +1,31 @@
+
+> web@0.1.0 test /Users/mani/Projects/everyday-tools/apps/web
+> vitest run
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `"type": "module"` in the closest package.json
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+
+ RUN  v5.0.5 /Users/mani/Projects/everyday-tools/apps/web
+
+ ✓ src/lib/search/search-tools.test.ts (2 tests) 3ms
+ ✓ src/features/tools/web/web-tools.test.ts (4 tests) 16ms
+ ✓ src/features/tools/text/text-tools.test.ts (4 tests) 23ms
+ ✓ src/features/tools/generators/random.test.ts (5 tests) 6ms
+ ✓ src/features/tools/encoding/codecs.test.ts (5 tests) 6ms
+ ✓ src/features/tools/colors/color-engine.test.ts (4 tests) 18ms
+ ✓ src/features/tools/dates/time.test.ts (3 tests) 120ms
+ ✓ src/features/tools/documents/pdf.test.ts (2 tests) 131ms
+ ✓ src/features/tools/json/json-tools.test.ts (5 tests) 126ms
+ ✓ src/features/tools/converters/units.test.ts (2 tests) 5ms
+ ✓ src/features/tools/images/geometry.test.ts (2 tests) 2ms
+ ✓ src/lib/site.test.ts (2 tests) 1ms
+ ✓ src/features/tools/generators/uuid.test.ts (2 tests) 3ms
+ ✓ src/features/tools/generators/passphrase.test.ts (1 test) 2ms
+
+ Test Files  14 passed (14)
+      Tests  43 passed (43)
+   Start at  11:25:55
+   Duration  545ms (transform 39%, import 36%, tests 20%, setup 3%, worker 2%)
+

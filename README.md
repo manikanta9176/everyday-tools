@@ -18,7 +18,7 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+The site is the `web` app in `apps/web`. Turborepo runs its dev server. Open [http://localhost:3000](http://localhost:3000).
 
 ## Quality checks
 
