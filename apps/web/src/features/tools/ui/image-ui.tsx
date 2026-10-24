@@ -15,7 +15,6 @@ type Mime = "image/jpeg" | "image/png" | "image/webp";
 
 export default function ImageTools({ slug }: { slug: string }) {
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState("");
   const [result, setResult] = useState<ImageResult | null>(null);
   const [mime, setMime] = useState<Mime>(slug === "image-converter" ? "image/webp" : "image/jpeg");
   const [quality, setQuality] = useState(0.8);
@@ -101,29 +100,16 @@ export default function ImageTools({ slug }: { slug: string }) {
   return (
     <div className="grid gap-4">
       <FileDrop
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
         label="Drop an image or choose a file"
-        hint="JPEG, PNG, WebP, and GIF stills. Up to 25 MB. Processing stays in this browser."
+        hint="JPEG, PNG, WebP, and GIF stills. Up to 25 MB. The image stays in this browser."
         files={file ? [file] : []}
         onFiles={(nextFiles) => {
-          const next = nextFiles[0] ?? null;
-          setFile(next);
+          setFile(nextFiles[0] ?? null);
           setResult(null);
           setMeta("");
-          if (!next) {
-            setPreview("");
-            return;
-          }
-          const reader = new FileReader();
-          reader.onload = () => setPreview(typeof reader.result === "string" ? reader.result : "");
-          reader.readAsDataURL(next);
         }}
       />
-      {preview ? (
-        // User-selected files are local previews, not remote images Next can optimize.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={preview} alt="Selected image preview" className="max-h-80 rounded-lg border object-contain" />
-      ) : null}
       {slug === "image-compressor" || slug === "image-converter" ? (
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="Format" htmlFor="format"><Select id="format" value={mime} onChange={(event) => setMime(event.target.value as Mime)}><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></Select></Field>
