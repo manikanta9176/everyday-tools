@@ -83,10 +83,12 @@ const drafts: Draft[] = [
   tool("web", "jwt-inspector", "JWT Inspector", "Decode a JWT locally. Decoding is not verification.", ["jwt decode"], ["jwt", "json web token"], { icon: "fingerprint", related: ["base64url-codec", "hash-generator"] }),
   tool("web", "cidr-calculator", "CIDR Calculator", "Calculate an IPv4 network, mask, and host range.", ["subnet"], ["cidr", "subnet mask"], { icon: "globe", related: ["number-base"] }),
   tool("web", "meta-tags", "Meta Tags", "Draft title, description, canonical, and social tags.", ["open graph"], ["meta tags", "open graph"], { icon: "globe", related: ["html-boilerplate"] }),
-  tool("web", "user-agent", "User-Agent Parser", "Read common browser and OS tokens from a user-agent.", ["ua parser"], ["user agent"], { icon: "globe", related: ["http-status"] }),
+  tool("web", "user-agent", "User-Agent Parser", "Read common browser and OS tokens from a user-agent.", ["ua parser"], ["user agent"], { icon: "globe", related: ["network-details"] }),
+  tool("web", "network-details", "Network Details", "See the public address, place, provider, this browser, and live connection graphs.", ["what is my ip", "local ip"], ["my ip", "network", "isp", "webrtc"], { icon: "globe", related: ["local-port", "cidr-calculator", "user-agent"], limitations: ["The public address, place, and provider are requested from ipapi.co, or from geojs.io if that is unavailable.", "Live graphs measure this browser. They do not include other apps or devices."] }),
+  tool("web", "local-port", "Local Port Link", "Make a link to a server already running on this computer, such as port 3000, for another device on the same Wi-Fi.", ["localhost port", "open port 3000"], ["port 3000", "local network", "dev server"], { icon: "globe", related: ["network-details", "qr-file-share", "qr-code"], limitations: ["This does not scan a network, list another computer’s files, or control another device.", "The other device opens the link. The server must accept connections from the network, not only from this computer."] }),
   tool("documents", "pdf-tools", "PDF Tools", "Merge, split, rotate, watermark, and inspect PDFs locally.", ["merge pdf", "split pdf"], ["merge pdf", "split pdf", "rotate pdf"], { icon: "fileText", related: ["image-converter"] }),
   tool("generators", "qr-code", "QR Code", "Create a QR code and download SVG or PNG.", ["qrcode"], ["qr code"], { featured: true, icon: "qr", related: ["qr-file-share", "placeholder-image"] }),
-  tool("generators", "qr-file-share", "QR File Share", "Send a file or video to another device. The QR code starts a direct transfer between the two browsers.", ["share file", "send video"], ["share with qr", "send movie", "airdrop"], { icon: "qr", related: ["qr-code"] }),
+  tool("generators", "qr-file-share", "QR File Share", "Send a file to a phone on the same Wi-Fi. The other phone scans once, then holds its reply up to this computer.", ["share file", "send video"], ["share with qr", "send movie", "airdrop"], { icon: "qr", related: ["qr-code", "local-port"] }),
   tool("generators", "placeholder-image", "Placeholder Image", "Generate a simple SVG placeholder.", ["dummy image"], ["placeholder image"], { icon: "image", related: ["lorem-ipsum", "image-resizer"] }),
 ];
 
@@ -97,7 +99,7 @@ function tool(
   description: string,
   aliases: string[],
   keywords: string[],
-  extra: { icon: ToolIconName; related: string[]; featured?: boolean; quickAction?: boolean },
+  extra: { icon: ToolIconName; related: string[]; featured?: boolean; quickAction?: boolean; limitations?: string[] },
 ): Draft {
   return {
     slug,
@@ -112,7 +114,7 @@ function tool(
     featured: extra.featured,
     quickAction: extra.quickAction,
     icon: extra.icon,
-    limitations: category === "color" ? ["Wide-gamut colors are mapped into sRGB for HEX and RGB. CMYK is an unprofiled approximation."] : undefined,
+    limitations: extra.limitations ?? (category === "color" ? ["Wide-gamut colors are mapped into sRGB for HEX and RGB. CMYK is an unprofiled approximation."] : undefined),
   };
 }
 

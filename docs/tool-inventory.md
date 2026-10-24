@@ -27,6 +27,7 @@ Status values: `ready` (works in the app). The registry is the source of truth f
 | CSV, YAML, XML, TOML, env diff, JSON Schema, JSONPath           | P1       | ready |
 | Code formatters, SQL, regex, cron, hash, JWT                    | P1       | ready |
 | URL tools, cURL builder, HTTP status, CIDR                      | P1       | ready |
+| Network details and local port link                             | P1       | ready |
 | Configuration generators                                        | P1       | ready |
 | Date math and everyday calculators                              | P1       | ready |
 | PDF utilities                                                   | P1       | ready |
@@ -38,7 +39,8 @@ Not shipped, and not shown as tools:
 
 - Barcode generation
 - A general HTTP request tester or server-side proxy
-- DNS or external IP lookup
+- DNS lookup
+- Scanning other devices, reading their files, or controlling them
 - PDF text extraction and PDF compression
 - A service worker for offline caching
 

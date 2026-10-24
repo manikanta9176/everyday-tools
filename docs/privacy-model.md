@@ -18,6 +18,8 @@ Clearing site data removes those preferences.
 
 The site loads its own HTML, CSS, JavaScript, and icons from the host you opened. It does not call an analytics service, and it does not send pasted text, files, or tokens to an application API.
 
+Network Details is the exception. Opening it asks ipapi.co for the public address, approximate place, and network provider, and asks geojs.io only if the first lookup is unavailable. That request does not include files, pasted text, or secrets.
+
 Fonts are self-hosted by Next.js. There is no third-party font request at runtime.
 
 A service worker is intentionally not registered. Offline caching of pages could retain private work, so installability is limited to the web app manifest.
