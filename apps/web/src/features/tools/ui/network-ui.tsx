@@ -177,7 +177,7 @@ export function LocalPort() {
   const [touched, setTouched] = useState(false);
   const [port, setPort] = useState(3000);
   const [path, setPath] = useState("/");
-  const [image, setImage] = useState("");
+  const [qr, setQr] = useState({ url: "", image: "" });
   const shown = touched ? address : preferredAddress(addresses);
   let url = "";
   let urlError = "";
@@ -189,16 +189,15 @@ export function LocalPort() {
     }
   }
 
+  const image = qr.url === url ? qr.image : "";
+
   useEffect(() => {
-    if (!url) {
-      setImage("");
-      return;
-    }
+    if (!url) return;
     let cancelled = false;
     void styledQrSvg(url, { dark: "#141311", light: "#ffffff", errorCorrectionLevel: "M" }).then((svg) => {
-      if (!cancelled) setImage(styledQrDataUrl(svg));
+      if (!cancelled) setQr({ url, image: styledQrDataUrl(svg) });
     }).catch(() => {
-      if (!cancelled) setImage("");
+      if (!cancelled) setQr({ url, image: "" });
     });
     return () => {
       cancelled = true;

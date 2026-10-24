@@ -41,11 +41,17 @@ export function QrShareTool() {
     const payload = readSharePayload(window.location.hash);
     if (!payload) return;
     let cancelled = false;
-    setRole("receive");
-    void applyCode(payload, "receive", () => cancelled);
+    const timer = window.setTimeout(() => {
+      if (cancelled) return;
+      setRole("receive");
+      void applyCode(payload, "receive", () => cancelled);
+    }, 0);
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
+    // The link hash is read once. applyCode changes every render and must not restart the transfer.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function chooseRole(next: Role) {
@@ -227,7 +233,7 @@ export function QrShareTool() {
     }
   }
 
-  async function usePhoto(file: File | undefined) {
+  async function decodePhoto(file: File | undefined) {
     if (!file) return;
     setError("");
     try {
@@ -309,7 +315,7 @@ export function QrShareTool() {
           onChange={(event) => {
             const file = event.target.files?.[0];
             event.target.value = "";
-            void usePhoto(file);
+            void decodePhoto(file);
           }}
         />
       </div>
