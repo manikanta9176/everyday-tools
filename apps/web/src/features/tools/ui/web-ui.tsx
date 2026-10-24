@@ -6,6 +6,7 @@ import { Field, Input, Select, TextArea } from "@/components/ui/field";
 import { ErrorNote, Toggle } from "@/components/ui/feedback";
 import { OutputBlock } from "@/components/ui/output";
 import { buildCurl, buildUrl, buildUtm, chmod, curlToFetch, decodeJwt, digestText, dockerCompose, envTemplate, gitignore, htmlBoilerplate, LICENSES, metaTags, nginxServer, parseCidr, parseUrl, parseUserAgent, readmeTemplate, robotsTxt, searchHttpStatus, sitemapXml, testRegex } from "@/features/tools/web/web-tools";
+import { LocalPort, NetworkDetails } from "./network-ui";
 import { useToolHotkeys } from "./use-hotkeys";
 
 export default function WebTools({ slug }: { slug: string }) {
@@ -18,6 +19,8 @@ export default function WebTools({ slug }: { slug: string }) {
   if (slug === "cidr-calculator") return <CidrTool />;
   if (slug === "meta-tags") return <MetaTool />;
   if (slug === "user-agent") return <AgentTool />;
+  if (slug === "network-details") return <NetworkDetails />;
+  if (slug === "local-port") return <LocalPort />;
   if (slug === "hash-generator") return <HashTool />;
   if (slug === "chmod-calculator") return <ChmodTool />;
   if (slug === "regex-tester") return <RegexTool />;
