@@ -7,10 +7,12 @@ import { ErrorNote } from "@/components/ui/feedback";
 import { downloadText } from "@/lib/downloads";
 import { styledQrSvg } from "@/features/tools/qr/styled-qr";
 import { placeholderSvg } from "@/features/tools/web/web-tools";
+import { QrShareTool } from "./qr-share-ui";
 import { useToolHotkeys } from "./use-hotkeys";
 
 export default function GeneratorTools({ slug }: { slug: string }) {
   if (slug === "placeholder-image") return <Placeholder />;
+  if (slug === "qr-file-share") return <QrShareTool />;
   return <QrTool />;
 }
 

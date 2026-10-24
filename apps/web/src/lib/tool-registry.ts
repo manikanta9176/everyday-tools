@@ -85,7 +85,8 @@ const drafts: Draft[] = [
   tool("web", "meta-tags", "Meta Tags", "Draft title, description, canonical, and social tags.", ["open graph"], ["meta tags", "open graph"], { icon: "globe", related: ["html-boilerplate"] }),
   tool("web", "user-agent", "User-Agent Parser", "Read common browser and OS tokens from a user-agent.", ["ua parser"], ["user agent"], { icon: "globe", related: ["http-status"] }),
   tool("documents", "pdf-tools", "PDF Tools", "Merge, split, rotate, watermark, and inspect PDFs locally.", ["merge pdf", "split pdf"], ["merge pdf", "split pdf", "rotate pdf"], { icon: "fileText", related: ["image-converter"] }),
-  tool("generators", "qr-code", "QR Code", "Create a QR code and download SVG or PNG.", ["qrcode"], ["qr code"], { featured: true, icon: "qr", related: ["placeholder-image"] }),
+  tool("generators", "qr-code", "QR Code", "Create a QR code and download SVG or PNG.", ["qrcode"], ["qr code"], { featured: true, icon: "qr", related: ["qr-file-share", "placeholder-image"] }),
+  tool("generators", "qr-file-share", "QR File Share", "Send a file or video to another device. The QR code starts a direct transfer between the two browsers.", ["share file", "send video"], ["share with qr", "send movie", "airdrop"], { icon: "qr", related: ["qr-code"] }),
   tool("generators", "placeholder-image", "Placeholder Image", "Generate a simple SVG placeholder.", ["dummy image"], ["placeholder image"], { icon: "image", related: ["lorem-ipsum", "image-resizer"] }),
 ];
 
