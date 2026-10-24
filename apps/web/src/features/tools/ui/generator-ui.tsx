@@ -5,33 +5,33 @@ import { Button } from "@/components/ui/button";
 import { Field, Input, TextArea } from "@/components/ui/field";
 import { ErrorNote } from "@/components/ui/feedback";
 import { downloadText } from "@/lib/downloads";
+import { styledQrSvg } from "@/features/tools/qr/styled-qr";
 import { placeholderSvg } from "@/features/tools/web/web-tools";
+import { QrShareTool } from "./qr-share-ui";
 import { useToolHotkeys } from "./use-hotkeys";
 
 export default function GeneratorTools({ slug }: { slug: string }) {
   if (slug === "placeholder-image") return <Placeholder />;
+  if (slug === "qr-file-share") return <QrShareTool />;
   return <QrTool />;
 }
 
 function QrTool() {
   const [text, setText] = useState("https://example.com");
-  const [dark, setDark] = useState("#1c1917");
-  const [light, setLight] = useState("#f6f4ef");
+  const [dark, setDark] = useState("#141311");
+  const [light, setLight] = useState("#fffdf8");
   const [svg, setSvg] = useState("");
   const [error, setError] = useState("");
   async function run() {
     try {
-      const QRCode = (await import("qrcode")).default;
-      if (!text.trim()) throw new Error("Enter text to encode.");
-      if (text.length > 2000) throw new Error("Keep QR text under 2,000 characters.");
-      setSvg(await QRCode.toString(text, { type: "svg", margin: 1, color: { dark, light }, errorCorrectionLevel: "M" }));
+      setSvg(await styledQrSvg(text, { dark, light, errorCorrectionLevel: "M" }));
       setError("");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not create a QR code.");
     }
   }
   useToolHotkeys(() => void run(), "");
-  return <div className="grid gap-4"><TextArea aria-label="QR text" value={text} onChange={(event) => setText(event.target.value)} /><div className="grid gap-4 md:grid-cols-2"><Field label="Foreground" htmlFor="dark"><Input id="dark" value={dark} onChange={(event) => setDark(event.target.value)} /></Field><Field label="Background" htmlFor="light"><Input id="light" value={light} onChange={(event) => setLight(event.target.value)} /></Field></div><p className="text-xs text-muted-foreground">A logo is not embedded. Covering the code can make it unscannable.</p><Button variant="primary" onClick={() => void run()}>Generate</Button><ErrorNote message={error} />{svg ? <div className="max-w-xs rounded-xl border bg-card p-3" dangerouslySetInnerHTML={{ __html: svg }} /> : null}<Button disabled={!svg} onClick={() => downloadText("qr-code.svg", svg, "image/svg+xml")}>Download SVG</Button></div>;
+  return <div className="grid gap-4"><TextArea aria-label="QR text" value={text} onChange={(event) => setText(event.target.value)} /><div className="grid gap-4 md:grid-cols-2"><Field label="Foreground" htmlFor="dark"><Input id="dark" value={dark} onChange={(event) => setDark(event.target.value)} /></Field><Field label="Background" htmlFor="light"><Input id="light" value={light} onChange={(event) => setLight(event.target.value)} /></Field></div><p className="text-xs text-muted-foreground">A logo is not embedded. Covering the code can make it unscannable.</p><Button variant="primary" onClick={() => void run()}>Generate</Button><ErrorNote message={error} />{svg ? <div className="w-full max-w-xs overflow-hidden rounded-[28px] border border-border shadow-[var(--shadow)]" dangerouslySetInnerHTML={{ __html: svg }} /> : null}<Button disabled={!svg} onClick={() => downloadText("qr-code.svg", svg, "image/svg+xml")}>Download SVG</Button></div>;
 }
 
 function Placeholder() {

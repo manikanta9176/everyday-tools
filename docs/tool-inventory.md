@@ -19,6 +19,7 @@ Status values: `ready` (works in the app). The registry is the source of truth f
 | Timestamp converter                                             | P0       | ready |
 | Unit converter                                                  | P0       | ready |
 | QR code generator                                               | P0       | ready |
+| QR file share                                                   | P1       | ready |
 | Color converter                                                 | P0       | ready |
 | Palette, contrast, gradient, and CSS variables                  | P0       | ready |
 | Image compress, resize, convert, crop, rotate, and flip         | P0       | ready |

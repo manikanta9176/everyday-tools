@@ -17,6 +17,7 @@ import {
   Palette,
   Search,
   Sparkles,
+  Star,
   Sun,
   Type,
 } from "lucide-react";
@@ -28,8 +29,9 @@ import { Toaster } from "sonner";
 import { ToolIcon } from "@/components/icons";
 import { CommandPalette } from "@/components/search/command-palette";
 import { categories, type CategoryId } from "@/lib/categories";
+import { PREFS_EVENT, readFavorites } from "@/lib/preferences";
 import { SITE } from "@/lib/site";
-import { toolIcons, toolsInCategory } from "@/lib/tool-registry";
+import { toolIcons, tools, toolsInCategory } from "@/lib/tool-registry";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -173,7 +175,22 @@ function ToolNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () =
     toolsInCategory(category.id).some((tool) => pathname === `/tools/${tool.slug}`),
   )?.id;
   const [override, setOverride] = useState<{ path: string; id: CategoryId | null } | null>(null);
+  const [favorites, setFavorites] = useState<string[]>([]);
   const openId = override?.path === pathname ? override.id : (activeCategory ?? "secrets");
+  const starred = favorites
+    .map((id) => tools.find((tool) => tool.id === id))
+    .filter((tool) => tool !== undefined);
+
+  useEffect(() => {
+    const sync = () => setFavorites(readFavorites());
+    sync();
+    window.addEventListener(PREFS_EVENT, sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener(PREFS_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
 
   return (
     <div className="flex h-full flex-col">
@@ -187,6 +204,35 @@ function ToolNav({ pathname, onNavigate }: { pathname: string; onNavigate?: () =
         </span>
       </div>
       <nav aria-label="Tools" className="flex-1 overflow-y-auto px-3 pb-4">
+        {starred.length ? (
+          <div className="mb-3">
+            <p className="flex items-center gap-1.5 px-3 pb-1 text-xs font-medium text-muted-foreground">
+              <Star className="size-3.5 fill-star text-star" />
+              Starred
+            </p>
+            <ul className="grid gap-0.5">
+              {starred.map((tool) => {
+                const active = pathname === `/tools/${tool.slug}`;
+                return (
+                  <li key={tool.id}>
+                    <Link
+                      href={`/tools/${tool.slug}`}
+                      aria-current={active ? "page" : undefined}
+                      onClick={onNavigate}
+                      className={cn(
+                        "flex h-8 items-center gap-2 rounded-full px-3 text-sm text-foreground/80 transition-colors duration-300 hover:bg-muted",
+                        active && "bg-background font-medium text-foreground shadow-[var(--shadow)]",
+                      )}
+                    >
+                      <ToolIcon name={toolIcons[tool.slug] ?? "file"} className={cn("size-4 shrink-0", active ? "text-signal" : "text-muted-foreground")} />
+                      <span className="truncate">{tool.name}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
         {categories.map((category) => {
           const Icon = categoryIcons[category.id];
           const open = openId === category.id;
