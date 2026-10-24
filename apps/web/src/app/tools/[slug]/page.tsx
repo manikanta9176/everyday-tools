@@ -50,7 +50,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </div>
           <FavoriteToggle id={tool.id} name={tool.name} />
         </div>
-        <p className="text-xs text-muted-foreground">Processed locally in your browser. Nothing you enter is uploaded.</p>
+        <p className="text-xs text-muted-foreground">{tool.slug === "network-details" ? "The public address lookup leaves this browser. Files and pasted text still stay on the device." : "Processed locally in your browser. Nothing you enter is uploaded."}</p>
       </header>
       <ToolWorkspace slug={tool.slug} category={tool.category} />
       {tool.limitations?.length ? (
