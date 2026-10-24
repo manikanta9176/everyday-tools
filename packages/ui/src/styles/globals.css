@@ -20,6 +20,7 @@
   --ring: #2a4bff;
   --quiet: #8d877d;
   --signal: #2a4bff;
+  --star: #c58a12;
   --danger: #b42318;
   --danger-soft: #fdecea;
   --success: #067647;
@@ -58,6 +59,7 @@
   --ring: #9aafd4;
   --quiet: #8e8c86;
   --signal: #9aafd4;
+  --star: #e6c36a;
   --danger: #e3a8a0;
   --danger-soft: #3a2e30;
   --success: #9dceb4;
@@ -95,6 +97,7 @@
   --color-ring: var(--ring);
   --color-quiet: var(--quiet);
   --color-signal: var(--signal);
+  --color-star: var(--star);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
   --color-success: var(--success);

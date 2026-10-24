@@ -126,7 +126,7 @@ export function FavoriteButton({
       onClick={onToggle}
       className="inline-flex size-8 items-center justify-center rounded-md hover:bg-muted"
     >
-      <Star className={cn("size-4", active && "fill-accent text-accent")} />
+      <Star className={cn("size-4 text-muted-foreground transition-colors duration-200", active && "fill-star text-star")} />
     </button>
   );
 }
